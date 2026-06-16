@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krish Makwana — Data Analyst & Data Science Trainee</title>
+  <meta name="description" content="Portfolio of Krish Makwana — Data Analyst, Data Science Trainee, and BI Developer from Ahmedabad, India." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg:        #0a0a0f;
+      --bg2:       #111118;
+      --bg3:       #16161f;
+      --border:    rgba(255,255,255,0.07);
+      --border2:   rgba(255,255,255,0.12);
+      --accent:    #6c63ff;
+      --accent2:   #a78bfa;
+      --cyan:      #22d3ee;
+      --green:     #34d399;
+      --text:      #e8e8f0;
+      --muted:     #8888a8;
+      --card:      #13131c;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* ── SELECTION ── */
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      font-weight: 500; transition: color 0.2s; letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #fff; padding: 0.45rem 1.1rem;
+      border-radius: 6px; font-size: 0.875rem; font-weight: 600;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 1px; transition: 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5vw; flex-direction: column; gap: 1.25rem; z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--muted); text-decoration: none; font-size: 1rem; font-weight: 500; }
+    .mobile-menu a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 5vw 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute; bottom: -150px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(108,99,255,0.12); border: 1px solid rgba(108,99,255,0.3);
+      color: var(--accent2); padding: 0.35rem 0.9rem; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 500; margin-bottom: 1.75rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .hero-badge::before {
+      content: ''; display: block; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 8px var(--green); flex-shrink: 0;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 500; color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .hero-desc {
+      font-size: 1.0625rem; color: var(--muted);
+      max-width: 580px; margin-bottom: 2.5rem; line-height: 1.75;
+    }
+    .hero-desc strong { color: var(--text); font-weight: 600; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: #fff;
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.9375rem;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(108,99,255,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,0.45); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--border2); color: var(--text);
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.9375rem;
+      text-decoration: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: rgba(108,99,255,0.06); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .stat { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent2) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.8125rem; color: var(--muted); font-weight: 500; }
+    .hero-socials {
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 1rem; align-items: center;
+    }
+    .hero-socials a {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border: 1px solid var(--border2); border-radius: 8px;
+      color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .hero-socials a:hover { border-color: var(--accent); color: var(--accent); background: rgba(108,99,255,0.08); }
+    .hero-socials a svg { width: 18px; height: 18px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 90px 5vw; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      margin-bottom: 1.25rem; line-height: 1.2;
+    }
+    .section-desc { color: var(--muted); max-width: 560px; font-size: 1.0625rem; margin-bottom: 3.5rem; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 1.125rem; }
+    .about-text p strong { color: var(--text); }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border2);
+      color: var(--muted); padding: 0.3rem 0.75rem; border-radius: 6px;
+      font-size: 0.8125rem; font-weight: 500;
+    }
+    .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .about-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .about-card:hover { border-color: var(--border2); }
+    .about-card-icon {
+      width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .about-card-icon.purple { background: rgba(108,99,255,0.15); }
+    .about-card-icon.cyan   { background: rgba(34,211,238,0.12); }
+    .about-card-icon.green  { background: rgba(52,211,153,0.12); }
+    .about-card h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .about-card p  { font-size: 0.8125rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .skill-group {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .skill-group:hover { border-color: rgba(108,99,255,0.4); transform: translateY(-3px); }
+    .skill-group-header {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;
+    }
+    .skill-group-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .skill-group-title { font-weight: 600; font-size: 0.9375rem; }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--muted); padding: 0.3rem 0.7rem; border-radius: 6px;
+      font-size: 0.8rem; font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--accent2); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg2); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .project-card:hover { border-color: rgba(108,99,255,0.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+    .project-card:hover::before { opacity: 1; }
+    .project-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .project-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .project-links { display: flex; gap: 0.5rem; }
+    .project-link {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: 6px;
+      border: 1px solid var(--border2); color: var(--muted);
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .project-link:hover { border-color: var(--accent); color: var(--accent); }
+    .project-link svg { width: 15px; height: 15px; }
+    .project-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; flex: 1; }
+    .project-metric {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2);
+      color: var(--green); padding: 0.3rem 0.7rem; border-radius: 6px;
+      font-size: 0.775rem; font-weight: 600; margin-bottom: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .project-metric::before { content: '▲'; font-size: 0.65rem; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tech-tag {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--muted); padding: 0.2rem 0.55rem; border-radius: 4px;
+      font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── FEATURED ── */
+    .project-card.featured { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .project-card.featured .project-content { display: flex; flex-direction: column; }
+    .project-card.featured .project-visual {
+      background: rgba(108,99,255,0.06); border: 1px solid rgba(108,99,255,0.15);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      min-height: 180px; font-size: 3rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.25rem;
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-item:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-item-icon {
+      width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-item-text span { display: block; }
+    .contact-item-text .label { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+    .contact-item-text .value { font-size: 0.9rem; font-weight: 500; }
+
+    /* ── FORM ── */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.8125rem; font-weight: 500; color: var(--muted); }
+    .form-group input, .form-group textarea {
+      background: var(--card); border: 1px solid var(--border2);
+      color: var(--text); padding: 0.75rem 1rem; border-radius: 8px;
+      font-size: 0.9375rem; font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none; resize: none;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+    }
+    .form-group textarea { min-height: 130px; }
+    .form-submit {
+      background: var(--accent); color: #fff; border: none; cursor: pointer;
+      padding: 0.8rem 1.75rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.9375rem; font-family: inherit;
+      transition: opacity 0.2s, transform 0.2s; width: 100%;
+      box-shadow: 0 4px 20px rgba(108,99,255,0.3);
+    }
+    .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 2.5rem 5vw; text-align: center;
+    }
+    footer .footer-inner { max-width: 1100px; margin: 0 auto; }
+    footer .footer-logo {
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 0.75rem; display: block;
+    }
+    footer p { color: var(--muted); font-size: 0.85rem; }
+    footer .footer-socials { display: flex; justify-content: center; gap: 1rem; margin: 1rem 0; }
+    footer .footer-socials a {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border2);
+      color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    footer .footer-socials a:hover { border-color: var(--accent); color: var(--accent); }
+    footer .footer-socials svg { width: 16px; height: 16px; }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: var(--border); width: 100%; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-socials { display: none; }
+      .about-grid  { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+      .project-card.featured .project-visual { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { gap: 1.5rem; }
+      section { padding: 70px 5vw; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">KM.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:krishmakwana2812@gmail.com" class="nav-cta">Hire Me</a>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu">
+  <a href="#about" onclick="this.closest('.mobile-menu').classList.remove('open')">About</a>
+  <a href="#skills" onclick="this.closest('.mobile-menu').classList.remove('open')">Skills</a>
+  <a href="#projects" onclick="this.closest('.mobile-menu').classList.remove('open')">Projects</a>
+  <a href="#contact" onclick="this.closest('.mobile-menu').classList.remove('open')">Contact</a>
+  <a href="mailto:krishmakwana2812@gmail.com" style="color: var(--accent);" onclick="this.closest('.mobile-menu').classList.remove('open')">Hire Me</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Available for Data Analytics Roles</div>
+    <h1 class="hero-name">Krish<br><span>Makwana</span></h1>
+    <p class="hero-title">Data Science Trainee &amp; BI Developer</p>
+    <p class="hero-desc">
+      I turn <strong>complex, messy datasets</strong> into clear business decisions — through Python, SQL, Power BI, and data storytelling. Currently building ETL pipelines and predictive analytics at <strong>Fly The Nest</strong>.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M9 12l-4-4 1.4-1.4L9 9.2l4.6-4.6L15 6l-6 6z"/></svg>
+        View Projects
+      </a>
+      <a href="#contact" class="btn-secondary">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" width="16" height="16"><path d="M3 8l7-5 7 5v9a1 1 0 01-1 1H4a1 1 0 01-1-1V8z"/><polyline points="9,14 9,10 11,10 11,14"/></svg>
+        Get In Touch
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">12+</span>
+        <span class="stat-label">GitHub Projects</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100K+</span>
+        <span class="stat-label">Records Analyzed</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">6+</span>
+        <span class="stat-label">BI Dashboards</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4+</span>
+        <span class="stat-label">Tools Mastered</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-socials">
+    <a href="https://github.com/KrishMakwana28" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/krish-makwana-58ab64374" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+    </a>
+    <a href="mailto:krishmakwana2812@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">// about me</div>
+    <h2 class="section-title">Data-driven by nature,<br>analytical by craft.</h2>
+    <div class="about-grid fade-in">
+      <div class="about-text">
+        <p>
+          I'm <strong>Krish Makwana</strong>, a Data Science Trainee and M.Sc. IT student from <strong>Ahmedabad, Gujarat</strong>. I specialize in transforming raw, messy data into clear business decisions through Python, SQL, Power BI, and Excel.
+        </p>
+        <p>
+          At <strong>Fly The Nest</strong>, I build and maintain ETL pipelines, drive data cleaning workflows, and develop predictive models that support business analytics. I believe the best analysis is one that a non-technical stakeholder can act on.
+        </p>
+        <p>
+          My work spans retail analytics, crime data, AQI dashboards, transport systems, and e-commerce — always focused on one thing: <strong>making data tell the right story</strong>.
+        </p>
+        <div class="about-tags">
+          <span class="tag">📍 Ahmedabad, Gujarat</span>
+          <span class="tag">🎓 M.Sc. CA &amp; IT</span>
+          <span class="tag">📊 Business Intelligence</span>
+          <span class="tag">🌐 Open to Remote</span>
+        </div>
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-icon purple">🏢</div>
+          <div>
+            <h4>Data Science Trainee</h4>
+            <p>Fly The Nest · Nov 2025 – Present<br>ETL pipelines, data cleaning, and predictive business analytics.</p>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon cyan">🎓</div>
+          <div>
+            <h4>M.Sc. CA &amp; IT</h4>
+            <p>K.S. School of Business Management &amp; IT · 2025 – 2027<br>Data science, machine learning, and information systems.</p>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon green">📈</div>
+          <div>
+            <h4>Core Focus</h4>
+            <p>Business Intelligence · Performance Dashboards · Exploratory Data Analysis · Predictive Modeling</p>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon purple">🔍</div>
+          <div>
+            <h4>Domain Expertise</h4>
+            <p>Retail Analytics · AQI / Environmental · Transport Systems · Crime Data · E-Commerce</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">// tools &amp; stack</div>
+    <h2 class="section-title">What I work with</h2>
+    <p class="section-desc">A focused stack built around data extraction, transformation, visualization, and insight delivery.</p>
+    <div class="skills-grid fade-in">
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <div class="skill-group-icon" style="background:rgba(108,99,255,0.15);">🐍</div>
+          <span class="skill-group-title">Programming</span>
+        </div>
+        <div class="skill-pills">
+          <span class="pill">Python</span>
+          <span class="pill">SQL</span>
+          <span class="pill">Query Optimization</span>
+          <span class="pill">Data Wrangling</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <div class="skill-group-icon" style="background:rgba(34,211,238,0.12);">📊</div>
+          <span class="skill-group-title">Analytics &amp; BI</span>
+        </div>
+        <div class="skill-pills">
+          <span class="pill">Microsoft Power BI</span>
+          <span class="pill">Excel</span>
+          <span class="pill">Power Query</span>
+          <span class="pill">DAX</span>
+          <span class="pill">Pivot Tables</span>
+          <span class="pill">KPI Design</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <div class="skill-group-icon" style="background:rgba(52,211,153,0.12);">🗄️</div>
+          <span class="skill-group-title">Data Engineering</span>
+        </div>
+        <div class="skill-pills">
+          <span class="pill">ETL Pipelines</span>
+          <span class="pill">MySQL</span>
+          <span class="pill">Data Cleaning</span>
+          <span class="pill">Data Transformation</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <div class="skill-group-icon" style="background:rgba(251,191,36,0.12);">📦</div>
+          <span class="skill-group-title">Libraries &amp; Tools</span>
+        </div>
+        <div class="skill-pills">
+          <span class="pill">Pandas</span>
+          <span class="pill">NumPy</span>
+          <span class="pill">OpenCV</span>
+          <span class="pill">Jupyter</span>
+          <span class="pill">VS Code</span>
+          <span class="pill">Matplotlib</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <div class="skill-group-icon" style="background:rgba(244,114,182,0.12);">🤖</div>
+          <span class="skill-group-title">Machine Learning / CV</span>
+        </div>
+        <div class="skill-pills">
+          <span class="pill">Computer Vision</span>
+          <span class="pill">Predictive Modeling</span>
+          <span class="pill">EDA</span>
+          <span class="pill">Feature Engineering</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-header">
+          <div class="skill-group-icon" style="background:rgba(167,139,250,0.12);">💡</div>
+          <span class="skill-group-title">Soft Skills</span>
+        </div>
+        <div class="skill-pills">
+          <span class="pill">Data Storytelling</span>
+          <span class="pill">Business Reporting</span>
+          <span class="pill">Insight Communication</span>
+          <span class="pill">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">// featured work</div>
+    <h2 class="section-title">Things I've built &amp; shipped</h2>
+    <p class="section-desc">End-to-end analytics projects across e-commerce, public safety, transport, and environmental domains.</p>
+    <div class="projects-grid">
+
+      <!-- FEATURED: Shopify -->
+      <div class="project-card featured fade-in">
+        <div class="project-content">
+          <div class="project-card-header">
+            <div class="project-icon" style="background:rgba(108,99,255,0.15);">🛒</div>
+            <div class="project-links">
+              <a href="https://github.com/KrishMakwana28/Shopify-Sales-EDA-and-Business-Insights" target="_blank" class="project-link" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">Shopify Sales EDA &amp; Business Insights</h3>
+          <p class="project-desc">
+            End-to-end Exploratory Data Analysis of 60,000+ Shopify e-commerce transactions. Analyzed sales trends, profitability, discount impact, return rates, customer segments, marketing channel ROI, and geographic performance — culminating in actionable strategic recommendations.
+          </p>
+          <div class="project-metric">Identified 22% revenue uplift opportunity via discount optimization</div>
+          <div class="project-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">NumPy</span>
+            <span class="tech-tag">Matplotlib</span>
+            <span class="tech-tag">EDA</span>
+          </div>
+        </div>
+        <div class="project-visual" aria-hidden="true">🛒📊</div>
+      </div>
+
+      <!-- AQI -->
+      <div class="project-card fade-in fade-in-delay-1">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:rgba(34,211,238,0.12);">🌫️</div>
+          <div class="project-links">
+            <a href="https://github.com/KrishMakwana28/AQI-Analytics-Project" target="_blank" class="project-link" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-title">AQI Analytics Project</h3>
+        <p class="project-desc">
+          Full-stack analytics pipeline for Air Quality Index data — from MySQL ingestion and cleaning through Python analysis to interactive Power BI dashboards. Tracks pollution trends, seasonal patterns, and health risk zones across regions.
+        </p>
+        <div class="project-metric">Reduced data processing time by 30% via optimized SQL queries</div>
+        <div class="project-stack">
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">Excel</span>
+        </div>
+      </div>
+
+      <!-- Crime India -->
+      <div class="project-card fade-in fade-in-delay-2">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:rgba(244,114,182,0.12);">🔍</div>
+          <div class="project-links">
+            <a href="https://github.com/KrishMakwana28/Indian_Crime_insights_india-2000-2026_PowerBI" target="_blank" class="project-link" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-title">Indian Crime Insights 2000–2026</h3>
+        <p class="project-desc">
+          Multi-page Power BI dashboard analyzing 100,000+ crime records spanning 26 years. Surfaces geographic hotspots, victim &amp; suspect demographics, law enforcement efficiency KPIs, and financial impact — to support data-informed public safety policy.
+        </p>
+        <div class="project-metric">100K+ records visualized across 5 dashboard pages</div>
+        <div class="project-stack">
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">DAX</span>
+          <span class="tech-tag">Data Modeling</span>
+        </div>
+      </div>
+
+      <!-- Uber / Transport SQL as side by side -->
+      <div class="project-card fade-in fade-in-delay-1">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:rgba(251,191,36,0.12);">🚕</div>
+          <div class="project-links">
+            <a href="https://github.com/KrishMakwana28/Uber-trip-analysis-powerbi-dashboard" target="_blank" class="project-link" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-title">Uber Trip Analysis Dashboard</h3>
+        <p class="project-desc">
+          Power BI dashboard uncovering trip booking patterns, revenue drivers, vehicle utilization, and peak location demand from Uber trip data. Built with dynamic DAX measures and cross-filtered interactive slicers for self-serve exploration.
+        </p>
+        <div class="project-metric">Surfaced 3 peak demand windows missed by prior reporting</div>
+        <div class="project-stack">
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">DAX</span>
+          <span class="tech-tag">Data Viz</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in fade-in-delay-2">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:rgba(52,211,153,0.12);">🚌</div>
+          <div class="project-links">
+            <a href="https://github.com/KrishMakwana28/transport-system-sql-analysis" target="_blank" class="project-link" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-title">Public Transport SQL Analytics</h3>
+        <p class="project-desc">
+          Relational database and advanced SQL analytics for a city-scale public transport system — modeling commuters, routes, vehicles, trips, and maintenance. Delivers revenue insights, route performance rankings, and commuter flow analysis via views and subqueries.
+        </p>
+        <div class="project-metric">Query execution time optimized by 25% via indexing strategy</div>
+        <div class="project-stack">
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">SQL Views</span>
+          <span class="tech-tag">Analytics</span>
+          <span class="tech-tag">ERD Design</span>
+        </div>
+      </div>
+
+      <!-- Northwind -->
+      <div class="project-card fade-in fade-in-delay-3">
+        <div class="project-card-header">
+          <div class="project-icon" style="background:rgba(108,99,255,0.12);">📦</div>
+          <div class="project-links">
+            <a href="https://github.com/KrishMakwana28/Northwind-traders-sales-business-insights-sql-analysis" target="_blank" class="project-link" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <h3 class="project-title">Northwind Traders Business Insights</h3>
+        <p class="project-desc">
+          SQL-driven business analytics across sales, customers, products, and operations for the classic Northwind dataset. Generates actionable insights on top products, customer lifetime value, supplier performance, and seasonal demand shifts.
+        </p>
+        <div class="project-metric">Identified top 5 revenue-driving product categories via cohort SQL</div>
+        <div class="project-stack">
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">Business Analytics</span>
+          <span class="tech-tag">Reporting</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top: 2.5rem;">
+      <a href="https://github.com/KrishMakwana28" target="_blank" class="btn-secondary" style="display:inline-flex;">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+        See all 12+ repositories on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">// get in touch</div>
+    <h2 class="section-title">Let's solve data problems</h2>
+    <p class="section-desc">Have a dataset, a business challenge, or a dashboard that needs clarity? I'm always up for it.</p>
+    <div class="contact-grid fade-in">
+      <div class="contact-info">
+        <a href="mailto:krishmakwana2812@gmail.com" class="contact-item">
+          <div class="contact-item-icon" style="background:rgba(108,99,255,0.15);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <span class="label">Email</span>
+            <span class="value">krishmakwana2812@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/krish-makwana-58ab64374" target="_blank" rel="noopener" class="contact-item">
+          <div class="contact-item-icon" style="background:rgba(34,211,238,0.12);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <span class="label">LinkedIn</span>
+            <span class="value">krish-makwana-58ab64374</span>
+          </div>
+        </a>
+        <a href="https://github.com/KrishMakwana28" target="_blank" rel="noopener" class="contact-item">
+          <div class="contact-item-icon" style="background:rgba(52,211,153,0.12);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--green)"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <span class="label">GitHub</span>
+            <span class="value">KrishMakwana28</span>
+          </div>
+        </a>
+        <div class="contact-item" style="cursor:default;">
+          <div class="contact-item-icon" style="background:rgba(167,139,250,0.12);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <span class="label">Location</span>
+            <span class="value">Ahmedabad, Gujarat, India</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project or data challenge..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">Krish Makwana</span>
+    <div class="footer-socials">
+      <a href="https://github.com/KrishMakwana28" target="_blank" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 016 0C17.1 5.9 18 6.2 18 6.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.2 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6C20.2 21.4 23.5 17.1 23.5 12 23.5 5.7 18.3.5 12 .5z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/krish-makwana-58ab64374" target="_blank" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.55V9h3.57v11.45z"/></svg>
+      </a>
+      <a href="mailto:krishmakwana2812@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      </a>
+    </div>
+    <p>Data Analyst · Data Science Trainee · BI Developer</p>
+    <p style="margin-top:0.5rem; font-size:0.78rem;">© 2025 Krish Makwana · Ahmedabad, India</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Contact form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    btn.textContent = 'Opening email client...';
+    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    window.location.href = `mailto:krishmakwana2812@gmail.com?subject=${subject}&body=${body}`;
+    setTimeout(() => { btn.textContent = 'Send Message →'; }, 2000);
+  }
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--text)' : '';
+    });
+  });
+</script>
+</body>
+</html>
